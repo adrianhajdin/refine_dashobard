@@ -5,7 +5,7 @@ import { Profile } from 'components';
 const MyProfile = () => {
   const { data: user } = useGetIdentity();
   const { data, isLoading, isError } = useOne({
-    resource: 'users',
+    resource: 'api/v1/users',
     id: user?.userid,
   });
 
