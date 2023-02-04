@@ -122,7 +122,7 @@ const App = () => {
       <GlobalStyles styles={{ html: { WebkitFontSmoothing: 'auto' } }} />
       <RefineSnackbarProvider>
         <Refine
-          dataProvider={dataProvider('https://yariga.up.railway.app/api/v1')}
+          dataProvider={dataProvider('https://yariga.up.railway.app/')}
           notificationProvider={notificationProvider}
           ReadyPage={ReadyPage}
           catchAll={<ErrorComponent />}
