@@ -19,7 +19,7 @@ const AgentProfile = ({ name, avatar }: AgentProfileProp) => (
 
 const TopAgent = () => {
   const { data, isLoading, isError } = useList({
-    resource: 'api/v1/users',
+    resource: 'users',
     config: {
       pagination: {
         pageSize: 5,

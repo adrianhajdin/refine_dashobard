@@ -48,7 +48,7 @@ axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
 
   return request;
 });
-s
+
 const App = () => {
   const authProvider: AuthProvider = {
     login: async ({ credential }: CredentialResponse) => {
@@ -122,7 +122,7 @@ const App = () => {
       <GlobalStyles styles={{ html: { WebkitFontSmoothing: 'auto' } }} />
       <RefineSnackbarProvider>
         <Refine
-          dataProvider={dataProvider('https://yariga.up.railway.app')}
+          dataProvider={dataProvider('https://yariga.up.railway.app/api/v1')}
           notificationProvider={notificationProvider}
           ReadyPage={ReadyPage}
           catchAll={<ErrorComponent />}
