@@ -7,7 +7,9 @@ import { PropertyCard, CustomButton } from 'components';
 
 const AllProperties = () => {
   const navigate = useNavigate();
-  const { tableQueryResult: { data, isLoading, isError } } = useTable();
+  const { tableQueryResult: { data, isLoading, isError } } = useTable({
+    resource: 'api/v1/properties',
+  });
 
   const allProperties = data?.data ?? [];
 
