@@ -2,7 +2,7 @@ import { Button } from '@pankod/refine-mui';
 
 import { CustomButtonProps } from 'interfaces/common';
 
-const CustomButton = ({ type, title, backgroundColor, color, fullWidth, icon, handleClick }: CustomButtonProps) => {
+const CustomButton = ({ type, title, backgroundColor, color, fullWidth, icon, handleClick, disabled }: CustomButtonProps) => {
   if (type === 'submit') {
     return (
       <Button
@@ -33,6 +33,7 @@ const CustomButton = ({ type, title, backgroundColor, color, fullWidth, icon, ha
 
   return (
     <Button
+      disabled={disabled}
       sx={{
         flex: fullWidth ? 1 : 'unset',
         padding: '10px 15px',
