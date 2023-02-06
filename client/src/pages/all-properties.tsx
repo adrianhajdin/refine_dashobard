@@ -1,10 +1,10 @@
+import { useMemo } from 'react';
 import { Add } from '@mui/icons-material';
 import { useTable } from '@pankod/refine-core';
 import { Box, MenuItem, Select, Stack, TextField, Typography } from '@pankod/refine-mui';
 import { useNavigate } from '@pankod/refine-react-router-v6';
 
 import { PropertyCard, CustomButton } from 'components';
-import { useEffect, useMemo, useState } from 'react';
 
 const AllProperties = () => {
   const navigate = useNavigate();
@@ -13,22 +13,12 @@ const AllProperties = () => {
     current,
     setCurrent,
     setPageSize,
+    pageCount,
     sorter, setSorter,
     filters, setFilters,
   } = useTable();
 
   const allProperties = data?.data ?? [];
-
-  const hasPrev = current > 1;
-
-  //* Workaround
-  const [maxPage, setMaxPage] = useState(0);
-  useEffect(() => {
-    if (current !== 1 && !allProperties.length) {
-      setMaxPage(current - 1);
-      setCurrent(current - 1);
-    }
-  }, [allProperties]);
 
   const currentPrice = sorter.find((item) => item.field === 'price')?.order || 'desc';
 
@@ -132,14 +122,17 @@ const AllProperties = () => {
             handleClick={() => setCurrent((prev) => prev - 1)}
             backgroundColor="#475BE8"
             color="#FCFCFC"
-            disabled={!hasPrev}
+            disabled={!(current > 1)}
           />
+          <Box display={{ xs: 'hidden', sm: 'flex' }} alignItems="center" gap="5px">
+            Page{' '}<strong> {current} of {pageCount} </strong>
+          </Box>
           <CustomButton
             title="Next"
             handleClick={() => setCurrent((prev) => prev + 1)}
             backgroundColor="#475BE8"
             color="#FCFCFC"
-            disabled={current === maxPage}
+            disabled={current === pageCount}
           />
           <Select
             variant="outlined"

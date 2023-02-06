@@ -1,24 +1,21 @@
 /* eslint-disable no-restricted-globals */
 import { Typography, Box, Stack } from '@pankod/refine-mui';
-import { useDelete, useGetIdentity, useOne } from '@pankod/refine-core';
+import { useDelete, useGetIdentity, useShow } from '@pankod/refine-core';
 import { useParams, useNavigate } from '@pankod/refine-react-router-v6';
 import { ChatBubble, Delete, Edit, Phone, Place, Star } from '@mui/icons-material';
 
 import { CustomButton } from 'components';
 
 const PropertyDetails = () => {
-  const naviagte = useNavigate();
+  const navigate = useNavigate();
+  const { data: user } = useGetIdentity();
+  const { queryResult } = useShow();
+  const { mutate } = useDelete();
   const { id } = useParams();
 
-  const { data: user } = useGetIdentity();
-  const { mutate } = useDelete();
+  const { data, isLoading, isError } = queryResult;
 
-  const { data, isLoading, isError } = useOne({
-    resource: 'properties',
-    id: id as string,
-  });
-
-  const propertyDetails = data?.data ?? [];
+  const propertyDetails = data?.data ?? {};
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -36,9 +33,11 @@ const PropertyDetails = () => {
       mutate({
         resource: 'properties',
         id: id as string,
+      }, {
+        onSuccess: () => {
+          navigate('/properties');
+        },
       });
-
-      naviagte('/properties');
     }
   };
 
@@ -138,7 +137,7 @@ const PropertyDetails = () => {
                 icon={!isCurrentUser ? <ChatBubble /> : <Edit />}
                 handleClick={() => {
                   if (isCurrentUser) {
-                    naviagte(`/properties/edit/${propertyDetails._id}`);
+                    navigate(`/properties/edit/${propertyDetails._id}`);
                   }
                 }}
               />
